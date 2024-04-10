@@ -46,10 +46,9 @@ string[,] departements = {
 do
 {
     Console.WriteLine("Donne moi le numéro ou le nom du département à tester (pas d'espace, uniquement des tirets)");
-    string reponse = Console.ReadLine();
-
-    string otherInfoDepartment1 = getOtherDepartementInformation(reponse);
+    string otherInfoDepartment1 = getOtherDepartementInformation(Console.ReadLine());
     Console.WriteLine(otherInfoDepartment1);
+
 
 } while (getIfUserWantsToContinue());
 
@@ -60,8 +59,7 @@ do
 do
 {
     Console.WriteLine("Maintenant donnez moi un numéro de département, et je vous donnerai le nombre de lettres du département");
-    string reponse2 = Console.ReadLine();
-    string otherInfoDepartment2 = getOtherDepartementInformation(reponse2);
+    string otherInfoDepartment2 = getOtherDepartementInformation(Console.ReadLine());
     Console.WriteLine(otherInfoDepartment2);
 
 } while (getIfUserWantsToContinue());
