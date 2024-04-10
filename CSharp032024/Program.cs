@@ -1,8 +1,8 @@
 ﻿//Faire une application qui nous donne le département en fonction du numéro qu'on lui donne
 #region Variables
+using System.Linq.Expressions;
 using System.Reflection.Metadata;
 
-string userWantsContinue;
 string[,] departements = {
     {"01", "Ain"}, {"02", "Aisne"}, {"03", "Allier"},
     {"04", "Alpes-de-Haute-Provence"}, {"05", "Hautes-Alpes"},
@@ -42,57 +42,72 @@ string[,] departements = {
 #endregion
 
 #region Recherche de départements
+
 do
 {
     Console.WriteLine("Donne moi le numéro ou le nom du département à tester (pas d'espace, uniquement des tirets)");
     string reponse = Console.ReadLine();
-    
-    //Cette boucle permet de rechercher un département dans le tableau
+
+    string otherInfoDepartment1 = getOtherDepartementInformation(reponse);
+    Console.WriteLine(otherInfoDepartment1);
+
+} while (getIfUserWantsToContinue());
+
+#endregion
+
+#region Nombre de lettres dans le nom d'un département
+
+do
+{
+    Console.WriteLine("Maintenant donnez moi un numéro de département, et je vous donnerai le nombre de lettres du département");
+    string reponse2 = Console.ReadLine();
+    string otherInfoDepartment2 = getOtherDepartementInformation(reponse2);
+    Console.WriteLine(otherInfoDepartment2);
+
+} while (getIfUserWantsToContinue());
+
+#endregion
+
+#region Functions
+
+//Si on donne le nom, on récupère le numéro
+//Si on donne le numéro, on récupère le nom
+string getOtherDepartementInformation(string request)
+{
     for (int i = 0; i < departements.GetLength(0); i++)
     {
         // { "1", "Ain" }
         string numDepartement = departements[i, 0];
         string nomDepartement = departements[i, 1];
 
-        if (reponse.ToLower() == numDepartement.ToLower())
+        if (request.ToLower() == numDepartement.ToLower())
         {
-            Console.WriteLine(nomDepartement);
+            return nomDepartement;
         }
-
-        if (reponse.ToLower() == nomDepartement.ToLower())
+        
+        if (request.ToLower() == nomDepartement.ToLower())
         {
-            Console.WriteLine(numDepartement);
+            return numDepartement;
         }
     }
 
+    return "Départment inconnu";
+}
 
+bool getIfUserWantsToContinue()
+{
     Console.WriteLine("");
     Console.WriteLine("Voulez-vous continuer (o/n) ?");
-    userWantsContinue = Console.ReadLine();
-} while (userWantsContinue.ToLower() == "o" );
+    string reponseWantContinue = Console.ReadLine();
 
-#endregion
-
-#region Nombre de lettres dans le nom d'un département
-Console.WriteLine("Maintenant donnez moi un numéro de département, et je vous donnerai le nombre de lettres du département");
-
-
-string reponse2 = Console.ReadLine();
-
-//Cette boucle permet de rechercher un département dans le tableau
-for (int i = 0; i < departements.GetLength(0); i++)
-{
-    // { "1", "Ain" }
-    string numDepartement = departements[i, 0];
-    string nomDepartement = departements[i, 1];
-
-    if (reponse2.ToLower() == numDepartement.ToLower())
+    if (reponseWantContinue == "o")
     {
-        Console.WriteLine("Nombre de lettres dans le nom de département "+nomDepartement+" : "+nomDepartement.Length);
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
-#endregion
-
-#region Functions
 
 #endregion
